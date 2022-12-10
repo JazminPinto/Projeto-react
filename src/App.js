@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Routes, Route, BrowserRouter } from "react-router-dom";
+import Cadastro from "./Components/Cadastro/Cadastro";
+import Criar from "./Components/Cadastro/Criar";
+import Home from "./Components/Home/Home";
+import Editar from './Components/Cadastro/Editar'
+import 'bootstrap';
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Editar />
+      <Home />
+      <Criar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/negocios" element={<Cadastro />} />
+        <Route path="/editar/id" element={<Home />} />
+        <Route path="/cadastro" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

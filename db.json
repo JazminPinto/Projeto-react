@@ -1,0 +1,10 @@
+{
+    "cadastro": [
+      {
+        "nome": "teste",
+        "email": "teste@exemplo.com",
+        "telefone": "12 34567 8901",
+        "id": 1
+      }
+    ]
+}
