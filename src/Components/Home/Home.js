@@ -1,19 +1,16 @@
 import { Link } from "react-router-dom";
-import { Button } from "bootstrap";
+import { Button } from "react-bootstrap";
 
 export default function Home() {
   return (
-    <header>
-      <h2>Guia do emprendedor</h2>
-      <Link to="/negocios">
-        <Button variant="outline=primary" className="botoes-home">Negocios</Button>
+    <main>
+    <h1>Pagina principal</h1>
+    <Link to="/cadastrar">
+        <Button variant="primary">Anunciantes</Button>
       </Link>
-      <Link to="/guia">
-        <Button variant="outline=primary" className="botoes-home">Guia</Button>
+      <Link to="/produtos">
+        <Button variant="primary">Site</Button>
       </Link>
-      <Link to="/cadastro">
-        <Button variant="outline=primary" className="botoes-home">Cadastro</Button>
-      </Link>
-    </header>
+    </main>
   );
 }
