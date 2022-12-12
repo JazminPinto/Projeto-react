@@ -85,15 +85,14 @@ export default function Criar() {
             </label>
           </div>
           <div>
-            <span>Descreva seu empreendimento: </span>
-            <label>
-              <input
-                type="text"
+            <span for='story'>Descreva seu empreendimento: </span> <br/>
+              <textarea id='story' name='story' 
+                rows='5' cols='33'
                 placeholder="Descreva seu empreendimento detalhadamente"
                 value={empreendimento}
                 onChange={(e) => setEmpreendimento(e.target.value)}
-              />
-            </label>
+              >
+            </textarea>
           </div>
         </form>
         <Link to="/">

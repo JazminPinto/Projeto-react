@@ -18,12 +18,14 @@ export default function Produtos() {
     {produtos.map((produto)=>{
       return(
         <div key={produto.id}>
-          <p>Nome do produto: {produto.nome}</p>
-          <p>Descricao: {produto.descricao}</p>
-          <p>Preco: {produto.preco}</p>
-          <p>Categoria: {produto.categoria}</p>
-          <p>Empreendedor: {produto.empreendedor}</p>
-          <p>Contato: {produto.contato}</p>
+          <ul>
+          <li>Nome do produto: {produto.nome}</li>
+          <li>Descrição: {produto.descricao}</li>
+          <li>Preço: {produto.preco}</li>
+          <li>Categoria: {produto.categoria}</li>
+          <li>Empreendedor: {produto.empreendedor}</li>
+          <li>Contato: {produto.contato}</li>
+          </ul>
         </div>
       )
     }
