@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Cabecalho from "../Cabecalho/Cabecalho";
+import './ValidarForm'
 
 export default function Criar() {
   const [nome, setNome] = useState("");
@@ -83,10 +84,10 @@ export default function Criar() {
             </label>
           </div>
           <div>
-            <span>E-mail: </span>
+            <span id='span-email'>E-mail: </span>
             <label>
-              <input
-                type="text"
+              <input 
+                type="email" name='email'
                 placeholder="email@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
