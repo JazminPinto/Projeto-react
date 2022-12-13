@@ -22,7 +22,7 @@ export default function CadastroProduto() {
       contato,
     };
 
-    await fetch("http://localhost:3004/cadastro", {
+    await fetch("http://localhost:3004/produtos", {
       method: "POST",
       body: JSON.stringify(cadastroPost),
       headers: { "Content-type": "application/json; charset=UTF-8" },
