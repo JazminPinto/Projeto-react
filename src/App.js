@@ -6,6 +6,8 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Produtos from "./Components/Produtos/Produtos";
 import Clientes from "./Components/Clientes/Clientes";
+import CadastroUsuario from "./Components/Cadastro/CadastroUsuario";
+import CadastroProduto from "./Components/Cadastro/CadastroProduto";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cadastrar" element={<Cadastrar />} />
+        <Route path="/cadastro-usuario" element={<CadastroUsuario/>} />
+        <Route path="/cadastro-produto" element={<CadastroProduto />} />
         <Route path="/produtos" element={<Produtos />} />
         <Route path="/clientes" element={<Clientes />} />
         <Route path="/editar/:id" element={<Editar />} />

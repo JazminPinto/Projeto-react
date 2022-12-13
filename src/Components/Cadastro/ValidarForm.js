@@ -1,4 +1,4 @@
-import { useState } from "react";
+{/*import { useState } from "react";
 import userEvent from "@testing-library/user-event";
 
 export default function ValidarEmail(){
@@ -60,4 +60,5 @@ function validate() {
   return true;
 }
 }
-document.querySelector('#email').addEventListener('input', ValidarEmail)
+document.querySelector('#email').addEventListener('input', ValidarEmail)*/
+}
