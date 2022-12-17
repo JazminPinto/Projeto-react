@@ -1,0 +1,92 @@
+*{
+  margin: auto;
+  font-family:'Times New Roman', Times, serif;
+
+}
+.fondo{
+  background-image: url("../img/ciudad.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position-y: 80%;
+  height: 500px;
+
+
+}
+.titulo{
+  font-family: "Rubik";
+  font-size: 40px;
+  color:#9456B3;
+  margin-left: 10%;
+  position: relative;
+  top: 60px;
+
+}
+.Circulo{
+position: relative;
+margin-left: 4.5rem;
+margin-top: 3rem;
+}
+
+
+.Circulo:hover {
+  transition: 2s;
+  transform: rotateY(360deg);
+
+}
+
+.Aro{
+
+  margin-left: 9%;
+  position: relative;
+  margin-top: -27rem;
+
+
+}
+.ciudad{
+
+  width: 100%;
+  position: relative;
+
+  left: 0px;
+}
+
+.Menu a{
+  text-decoration: none;
+}
+
+.Menu{
+  display: flex;
+  flex-direction: row;
+justify-content: flex-end;}
+.Btn{
+  font-family: "orbitron";
+  font-size: 25px;
+  font-weight: bold;
+  width: 200px;
+  height: 75px;
+  color: #f8720b;
+  background-color: #ffff;
+  text-transform: capitalize;
+  border:2px solid #9678d2;
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+
+
+.Btn:hover{
+  background-color:#9456B3;
+  color: #fff;
+}
+
+#BtnNeg {
+  position: relative;
+  left: 25%;
+
+}
+#BtnC{
+  position: relative;
+  left: 60%;
+  bottom: 90px;
+}

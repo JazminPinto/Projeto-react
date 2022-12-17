@@ -1,0 +1,59 @@
+.titulo1 {
+  font-family:'Times New Roman', Times, serif;
+  font-size: 40px;
+  color: #9456b3;
+}
+
+.circuloAro {
+  margin: 0;
+  margin-top: .5rem;
+}
+.links {
+  display: inline-flex;
+  margin-right: 0;
+}
+
+.Circulo1 {
+  width: 65px;
+  height: 65px;
+  position: relative;
+  left: 65px;
+  margin-top: 7px;
+}
+
+.Circulo1:hover {
+  transition: 2s;
+  transform: rotateY(360deg);
+}
+
+.Aro1 {
+  width: 65px;
+  height: 65px;
+  margin-top: 7px;
+}
+
+.BtnC {
+  position: relative;
+  left: 50%;
+  color: #9456b3;
+}
+.nav {
+  background-color: #9456b3;
+}
+
+.nav a {
+  text-decoration: none;
+  padding: 1rem;
+  margin: 0.5rem;
+  margin-top: 1rem;
+  color: #f8720b;
+  font-weight: bold;
+  font-size: 1.8rem;
+  -webkit-text-stroke: 0.2px  #dbc6e5dd;
+  letter-spacing: 0.5px;
+}
+
+.nav a:hover {
+  color: white;
+  text-decoration-line: underline;
+}

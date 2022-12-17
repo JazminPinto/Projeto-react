@@ -1,21 +1,31 @@
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import "./Cabecalho.css"
+import circulo from "../img/circulo.png";
+import aro from "../img/aro.png";
 
 export default function Cabecalho() {
   return (
     <header>
-      <Link to="/">
-        <h2>Guia do emprendedor</h2>
+      <Link to="/" style={{ textDecoration: 'none' }}>
+        <h2 className="titulo1">Guia do emprendedor</h2>
       </Link>
-      <Link to="/produtos">
-        <Button variant="primary">Produtos</Button>
-      </Link>
-      <Link to="/cadastrar">
-        <Button variant="primary">Cadastro</Button>
-      </Link>
-      <Link to="/clientes">
-        <Button variant="primary">Clientes</Button>
-      </Link>
+      <nav className="nav">
+          <div className="circuloAro">
+            <img src={circulo} alt="logo" className="Circulo1"/>
+            <img src={aro} alt="logo" className="Aro1"/>
+          </div>
+          <div className="links">
+        <Link to="/produtos">
+          <p>Produtos</p>
+        </Link>
+        <Link to="/clientes" >
+          <p>Clientes</p> 
+        </Link>
+        <Link to="/cadastrar" >
+          <p>Cadastro</p>
+        </Link>
+        </div>
+      </nav>
     </header>
   );
 }

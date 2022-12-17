@@ -1,16 +1,27 @@
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
-
+import circulo from "../img/circulo.png";
+import aro from "../img/aro.png";
+import "./Home.css";
 export default function Home() {
   return (
     <main>
-    <h1>Pagina principal</h1>
-    <Link to="/cadastrar">
-        <Button variant="primary">Anunciantes</Button>
-      </Link>
-      <Link to="/produtos">
-        <Button variant="primary">Site</Button>
-      </Link>
+      <div className="fondo">
+        <h1 className="titulo">Guia do Comercio</h1>
+        <img src={circulo} alt="logo" className="Circulo" />
+        <img src={aro} alt="logo" className="Aro" />
+      </div>
+      <div className="Menu">
+        <Link to="/cadastrar">
+          <p className="Btn"  variant="primary">
+            Anunciantes
+          </p>
+        </Link>
+        <Link to="/produtos">
+          <p className="Btn"  variant="primary">
+            Site
+          </p>
+        </Link>
+      </div>
     </main>
   );
 }

@@ -1,0 +1,84 @@
+head, 
+body, 
+footer{
+  display: flex;
+  margin: auto;
+  padding: auto;
+  font-family:'Times New Roman', Times, serif;
+  
+}
+
+#comercios{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  margin: .5rem;
+  padding: .5rem;
+  
+  
+}
+.TituloC{
+  text-align: center;
+  color: #9456b3;
+  margin-top: 1rem;
+}
+
+.loja{
+  width: 150px;
+  height: 120px; 
+  margin-left: 25%;
+}
+
+#Loja{
+  background-color: #F1A887;
+  width: 300px;
+  height: 520px; 
+  border-style: solid;
+  border-radius: .5rem;
+  border-color: #d49476;
+}
+
+ul{
+  list-style-type: none;
+  margin: auto 2rem ;
+
+}
+
+.botoes-lista {
+  color: white;
+  background-color: #9e69b8;
+  border-color: #703f88;
+  margin-left: 15%;
+  margin-top: 1rem;
+  width: 5rem;
+  height: 2.3rem;
+}
+
+/*Modal*/
+
+#editar {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  border-style: solid;
+  border-radius: 0.5rem;
+  border-color: #d49476;
+  margin: 0;
+  padding: 0.5rem;
+}
+#descricao {
+  height: 8rem;
+}
+
+.span1{
+ display: inline-flex;
+  margin-left: 15px;
+}
+
+.boton1{
+  background-color: #9456B3;
+}
+
+.boton2{
+ background-color: #f8720b;
+}

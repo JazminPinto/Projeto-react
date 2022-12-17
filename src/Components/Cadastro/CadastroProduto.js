@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Col, Row, Form } from "react-bootstrap";
 import Cabecalho from "../Cabecalho/Cabecalho";
-import "./ValidarForm";
+import "./Cadastrar.css";
 
 export default function CadastroProduto() {
   const [nomeProduto, setNomeProduto] = useState("");
@@ -11,6 +10,9 @@ export default function CadastroProduto() {
   const [categoria, setCategoria] = useState("");
   const [nomeEmpreendedor, setNomeEmpreendedor] = useState("");
   const [contato, setContato] = useState("");
+
+  const [validated, setValidated] = useState(false);
+  const [estadoDoBotao, setEstadoDoBotao] = useState(true);
 
   const novoCadastro = async () => {
     const cadastroPost = {
@@ -29,88 +31,140 @@ export default function CadastroProduto() {
     });
   };
 
-    return (
-      <div>
-        <Cabecalho />
-        <br />
-        <div>
-          <form>
-            <div>
-              <span>Nome do produto: </span>
-              <label>
-                <input
-                  type="text"
-                  placeholder="produto do projeto X"
-                  value={nomeProduto}
-                  onChange={(e) => setNomeProduto(e.target.value)}
-                />
-              </label>
-            </div>
-            <div>
-              <span>Descrição: </span>
-              <label>
-                <input
-                  type="text"
-                  placeholder="descriva seu produto brevemente"
-                  value={descricao}
-                  onChange={(e) => setDescricao(e.target.value)}
-                />
-              </label>
-            </div>
-            <div>
-              <span>Preço: </span>
-              <label>
-                <input
-                  type="text"
-                  placeholder="R$ 100,00"
-                  value={preco}
-                  onChange={(e) => setPreco(e.target.value)}
-                />
-              </label>
-            </div>
-            <div>
-              <span>Categoria: </span>
-              <label>
-                <input
-                  type="text"
-                  placeholder="serviços"
-                  value={categoria}
-                  onChange={(e) => setCategoria(e.target.value)}
-                />
-              </label>
-            </div>
-            <div>
-              <label>
-                <span> Empreendedor: </span>
-                <input
-                  placeholder="Nome Sobrenome"
-                  value={nomeEmpreendedor}
-                  onChange={(e) => setNomeEmpreendedor(e.target.value)}
-                />
-              </label>
-            </div>
-            <div>
-              <label>
-                <span>Contato:</span>
-                <input
-                  placeholder="(xx) xxxxx-xxxx"
-                  value={contato}
-                  onChange={(e) => setContato(e.target.value)}
-                />
-              </label>
-            </div> 
-          </form>
-          <Link to="/cadastrar">
-            <Button
-              variant="success"
-              onClick={novoCadastro}
-              className="botao-cadastro"
-            >
-              Cadastrar Produto
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      setEstadoDoBotao(true);
+    } else {
+      setValidated(true);
+      setEstadoDoBotao(false);
+    }
   };
 
+  return (
+    <div>
+      <Cabecalho />
+      <div>
+        <h1>
+          <b>Cadastro de Produtos</b>
+        </h1>
+        <Form
+          noValidate
+          validated={validated}
+          onChange={handleSubmit}
+          onSubmit={handleSubmit}
+        >
+          <Row className="mb-3" id="formulario">
+            <Form.Group
+              as={Col}
+              controlId="nomeDoProduto"
+              className="position-relative"
+            >
+              <Form.Label>Nome do produto: </Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="produto do projeto X"
+                value={nomeProduto}
+                onChange={(e) => setNomeProduto(e.target.value)}
+              />
+              <Form.Control.Feedback tooltip>Perfeito!</Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group
+              as={Col}
+              controlId="descricao"
+              className="position-relative"
+            >
+              <Form.Label>Descrição: </Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="descriva seu produto brevemente"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+              />
+              <Form.Control.Feedback tooltip>Ótimo!</Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group
+              as={Col}
+              controlId="preco"
+              className="position-relative"
+            >
+              <Form.Label>Preço: </Form.Label>
+              <Form.Control
+                required
+                type="number"
+                placeholder="1.000"
+                value={preco}
+                onChange={(e) => setPreco(e.target.value)}
+              />
+              <Form.Control.Feedback tooltip>Nossa!!!</Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group
+              as={Col}
+              controlId="categoria"
+              className="position-relative"
+            >
+              <Form.Label>Categoria: </Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="serviços"
+                value={categoria}
+                onChange={(e) => setCategoria(e.target.value)}
+              />
+              <Form.Control.Feedback tooltip>Ótimo!</Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group
+              as={Col}
+              controlId="empreendedor"
+              className="position-relative"
+            >
+              <Form.Label> Empreendedor: </Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="Nome Sobrenome do empreendedor"
+                value={nomeEmpreendedor}
+                onChange={(e) => setNomeEmpreendedor(e.target.value)}
+              />
+              <Form.Control.Feedback tooltip>Ótimo!</Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group
+              as={Col}
+              controlId="contato"
+              className="position-relative"
+            >
+              <Form.Label>Contato:</Form.Label>
+              <Form.Control
+                required
+                type="number"
+                placeholder="xx xxxxx-xxxx"
+                value={contato}
+                onChange={(e) => setContato(e.target.value)}
+              />
+              <Form.Control.Feedback tooltip>Ótimo!</Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+
+          <Button
+            className="botao-cadastro"
+            disabled={estadoDoBotao}
+            type="submit"
+            variant="success"
+            onClick={novoCadastro}
+          >
+            <b>Cadastrar Produto</b>
+          </Button>
+        </Form>
+      </div>
+    </div>
+  );
+}

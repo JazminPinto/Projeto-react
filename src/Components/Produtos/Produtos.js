@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
 import Cabecalho from "../Cabecalho/Cabecalho";
+import Loja from "../img/loja.jpg";
+import { Button, Form, Col, Modal, Row } from "react-bootstrap";
+import "./Produtos.css";
 
 export default function Produtos() {
   const [produtos, setProdutos] = useState([]);
   const [id, setId] = useState("");
-  const [nome, setNome] = useState("");
+  const [nomeProduto, setNomeProduto] = useState("");
   const [descricao, setDescricao] = useState("");
   const [preco, setPreco] = useState("");
   const [categoria, setCategoria] = useState("");
   const [empreendedor, setEmpreendedor] = useState("");
   const [contato, setContato] = useState("");
+
+  const [estadoDoBotao, setEstadoDoBotao] = useState(true);
+
+  const [validated, setValidated] = useState(false);
 
   const [show, setShow] = useState(false);
   const fecharModal = () => setShow(false);
@@ -23,7 +29,7 @@ export default function Produtos() {
   const fecharModalEdit = () => setEdit(false);
   const mostrarModalEdit = (
     id,
-    nome,
+    nomeProduto,
     descricao,
     preco,
     categoria,
@@ -31,7 +37,7 @@ export default function Produtos() {
     contato
   ) => {
     setId(id);
-    setNome(nome);
+    setNomeProduto(nomeProduto);
     setDescricao(descricao);
     setPreco(preco);
     setCategoria(categoria);
@@ -52,7 +58,7 @@ export default function Produtos() {
 
   const alterarProduto = async () => {
     const cadastroPatch = {
-      nome,
+      nomeProduto,
       descricao,
       preco,
       categoria,
@@ -66,7 +72,7 @@ export default function Produtos() {
       headers: { "Content-type": "application/json; charset=UTF-8" },
     });
     atualizarProduto();
-    fecharModalEdit()
+    fecharModalEdit();
   };
 
   //apagar produto
@@ -74,155 +80,252 @@ export default function Produtos() {
     await fetch(`http://localhost:3004/produtos/${id}`, {
       method: "DELETE",
     });
+
     atualizarProduto();
     fecharModal();
   };
 
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      setEstadoDoBotao(true);
+    } else {
+      setValidated(true);
+      setEstadoDoBotao(false);
+    }
+  };
+
   return (
     <div>
-      <Cabecalho />
-      <h1>Produtos</h1>
-
-      {produtos.map((produto) => {
-        return (
-          <div key={produto.id}>
-            <ul>
-              <li>Nome do produto: {produto.nome}</li>
-              <li>Descrição: {produto.descricao}</li>
-              <li>Preço: {produto.preco}</li>
-              <li>Categoria: {produto.categoria}</li>
-              <li>Empreendedor: {produto.empreendedor}</li>
-              <li>Contato: {produto.contato}</li>
-            </ul>
-          <div>
-          <Button
-            variant="outline-success"
-            size="sm"
-            onClick={() =>
-              mostrarModalEdit(
-                produto.id,
-                produto.nome,
-                produto.descricao,
-                produto.preco,
-                produto.categoria,
-                produto.empreendedor,
-                produto.contato
-              )
-            }
-            className="botoes-lista"
-          >
-            Editar{''}  
-          </Button>
-          <br/>
-          <Button
-            variant="outline-danger"
-            size="sm"
-            onClick={() => mostrarModal(produto.id)}
-            className="botoes-lista"
-          >
-            Apagar
-          </Button>
+      <div>
+        <Cabecalho />
       </div>
-    </div>
-  );
-})}
+      <h1 className="TituloC">
+        <b>Produtos dos Comercios</b>
+      </h1>
 
-<Modal show={edit} onHide={fecharModalEdit}>
-        <Modal.Header closeButton>
-          <Modal.Title>Editar produto</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form>
-            <div>
-              <span>Nome: </span>
-              <label>
-                <input
-                  type="text"
-                  defaultValue={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                />
-              </label>
+      <div id="comercios">
+        {produtos.map((produto) => {
+          return (
+            <div key={produto.id}>
+              <div id="Loja">
+                <img src={Loja} alt="Loja" className="loja" />
+                <h3>
+                  <b>Produto</b>
+                </h3>
+
+                <ul>
+                  <li> {produto.nomeProduto}</li>
+                  <li> {produto.descricao}</li>
+                  <li>Preço: R$.{produto.preco}</li>
+                  <li>Categoria: {produto.categoria}</li>
+                  <li>Empreendedor: {produto.empreendedor}</li>
+                  <li>Contato: {produto.contato}</li>
+                </ul>
+                <div>
+                  <Button
+                    variant="outline-success"
+                    size="sm"
+                    onClick={() =>
+                      mostrarModalEdit(
+                        produto.id,
+                        produto.nomeProduto,
+                        produto.descricao,
+                        produto.preco,
+                        produto.categoria,
+                        produto.empreendedor,
+                        produto.contato
+                      )
+                    }
+                    className="botoes-lista"
+                  >
+                    <b>Editar</b>
+                  </Button>
+                  <Button
+                    variant="outline-danger"
+                    size="sm"
+                    onClick={() => mostrarModal(produto.id)}
+                    className="botoes-lista"
+                  >
+                    <b>Apagar</b>
+                  </Button>
+                </div>
+              </div>
+              <br />
             </div>
-            <div>
-              <span>Descrição: </span>
-              <label>
-                <input
+          );
+        })}
+      </div>
+
+      <Modal show={edit} onHide={fecharModalEdit}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <b>Editar Produto</b>
+          </Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Form
+            noValidate
+            validated={validated}
+            onChange={handleSubmit}
+            onSubmit={handleSubmit}
+          >
+            <Row className="mb-3" id="editar">
+              <Form.Group
+                as={Col}
+                controlId="nomeProduto"
+                className="position-relative"
+              >
+                <Form.Label>Nome do Produto: </Form.Label>
+
+                <Form.Control
+                  required
+                  type="text"
+                  defaultValue={nomeProduto}
+                  onChange={(e) => setNomeProduto(e.target.value)}
+                />
+                <Form.Control.Feedback tooltip>
+                  Agora sim?
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group
+                as={Col}
+                controlId="descricao"
+                className="position-relative"
+              >
+                <Form.Label>Descrição: </Form.Label>
+                <Form.Control
+                  id="descricao"
+                  required
                   type="text"
                   defaultValue={descricao}
                   onChange={(e) => setDescricao(e.target.value)}
                 />
-              </label>
-            </div>
-            <div>
-              <span>Preço: </span>
-              <label>
-                <input
-                  type="text"
+                <Form.Control.Feedback tooltip>
+                  Aqui tambem?
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group
+                as={Col}
+                controlId="preco"
+                className="position-relative"
+              >
+                <Form.Label>Preço: </Form.Label>
+                <Form.Control
+                  required
+                  type="number"
                   defaultValue={preco}
                   onChange={(e) => setPreco(e.target.value)}
                 />
-              </label>
-            </div>
-            <div>
-              <span>Categoria: </span>
-              <label>
-                <input
+                <Form.Control.Feedback tooltip>
+                  Trocou foi?
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group
+                as={Col}
+                controlId="categoria"
+                className="position-relative"
+              >
+                <Form.Label>Categoria: </Form.Label>
+                <Form.Control
+                  required
                   type="text"
                   defaultValue={categoria}
                   onChange={(e) => setCategoria(e.target.value)}
                 />
-              </label>
-            </div>
-            <div>
-              <span>Empreendedor: </span>
-              <label>
-                <input
+                <Form.Control.Feedback tooltip>
+                  Arrasou!!!
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group
+                as={Col}
+                controlId="empreendedor"
+                className="position-relative"
+              >
+                <Form.Label>Nome do empreendedor: </Form.Label>
+                <Form.Control
+                  required
                   type="text"
                   defaultValue={empreendedor}
                   onChange={(e) => setEmpreendedor(e.target.value)}
                 />
-              </label>
-            </div>
-            <div>
-              <span>Contato: </span>
-              <label>
-                <input
-                  type="text"
+                <Form.Control.Feedback tooltip>
+                  Arrasou!!!
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group
+                as={Col}
+                controlId="contato"
+                className="position-relative"
+              >
+                <Form.Label>Contato: </Form.Label>
+                <Form.Control
+                  required
+                  type="number"
                   defaultValue={contato}
                   onChange={(e) => setContato(e.target.value)}
                 />
-              </label>
-            </div>
-          </form>
+                <Form.Control.Feedback tooltip>
+                  Arrasou!!!
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+          </Form>
         </Modal.Body>
+
         <Modal.Footer>
-          <Button variant="secondary" onClick={fecharModalEdit}>
-            Cancelar
+          <Button
+            className="botao-modal"
+            variant="secondary"
+            onClick={fecharModalEdit}
+          >
+            <b>Cancelar</b>
           </Button>
-          <Button variant="primary" onClick={alterarProduto}>
-            Confirmar
+          <Button
+            variant="primary"
+            disabled={estadoDoBotao}
+            onClick={alterarProduto}
+          >
+            <b>Confirmar</b>
           </Button>
         </Modal.Footer>
       </Modal>
 
       <Modal show={show} onHide={fecharModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Apagar produto</Modal.Title>
+          <Modal.Title>
+            <b>Apagar produto</b>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Tem certeza?
-          <br /> Se apaga o produto não vai poder recuperar essa informação!!!.
+          Tem certeza???
+          <br /> Ao confirmar, o produto selecionado <b>NÃO</b> vai se poder
+          recuperar!!!.
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={fecharModal}>
-            Cancelar
+          <Button
+            className="botao-modal"
+            variant="secondary"
+            onClick={fecharModal}
+          >
+            <b>Cancelar</b>
           </Button>
-          <Button variant="primary" onClick={apagarProduto}>
-            Confirmar
+          <Button
+            className="botao-modal"
+            variant="primary"
+            onClick={apagarProduto}
+          >
+            <b>Confirmar</b>
           </Button>
         </Modal.Footer>
       </Modal>
     </div>
   );
 }
-

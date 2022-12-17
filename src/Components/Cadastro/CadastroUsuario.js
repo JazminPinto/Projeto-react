@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Col, Row, Form } from "react-bootstrap";
 import Cabecalho from "../Cabecalho/Cabecalho";
-import "./ValidarForm";
+import "./Cadastrar.css";
 
 export default function CadastroUsuario() {
   const [nome, setNome] = useState("");
@@ -11,7 +10,11 @@ export default function CadastroUsuario() {
   const [empreendimento, setEmpreendimento] = useState("");
   const [empreendedor, setEmpreendedor] = useState("");
 
-  const novoCadastro = async () => {
+  const [estadoDoBotao, setEstadoDoBotao] = useState(true);
+
+  const [validated, setValidated] = useState(false);
+
+  const cadastrarUsuario = async () => {
     const cadastroPost = {
       nome,
       telefone,
@@ -27,90 +30,127 @@ export default function CadastroUsuario() {
     });
   };
 
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      setEstadoDoBotao(true);
+    } else {
+      setValidated(true);
+      setEstadoDoBotao(false);
+    }
+  };
+
   return (
     <div>
       <Cabecalho />
-      <br />
       <div>
-        <form>
-          <span>Você é empreendedor?</span>
-          <div>
-            <input
-              type="radio"
-              id="empreendedor"
-              name="empreendedor"
-              value="sim"
-              onChange={(e) => setEmpreendedor(e.target.value)}
-            />
-            <label htmlFor="sim">Sim</label>
-            <input
-              type="radio"
-              id="naoempreendedor"
-              name="empreendedor"
-              value="nao"
-              onChange={(e) => setEmpreendedor(e.target.value)}
-            />
-            <label htmlFor="nao">Ainda não</label>
-          </div>
-          <div>
-            <span>Nome: </span>
-            <label>
-              <input
+        <h1>
+          <b>Cadastro de Clientes ou Empreendedores</b>
+        </h1>
+        <Form
+          noValidate
+          validated={validated}
+          onChange={handleSubmit}
+          onSubmit={handleSubmit}
+        >
+          <Row className="mb-3" id="formulario">
+            <Form.Group as={Col} controlId="nome" className="position-relative">
+              <Form.Label>Nome e Sobrenome:</Form.Label>
+              <Form.Control
+                required
                 type="text"
-                placeholder="Nome Sobrenome"
+                placeholder="Nome e Sobrenome"
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
               />
-            </label>
-          </div>
-          <div>
-            <span>Telefone: </span>
-            <label>
-              <input
-                type="text"
-                placeholder="(xx) xxxxx-xxxx"
+              <Form.Control.Feedback tooltip>Perfeito!</Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group
+              as={Col}
+              controlId="telefone"
+              className="position-relative"
+            >
+              <Form.Label>Telefone: </Form.Label>
+              <Form.Control
+                required
+                type="number"
+                placeholder="xx xxxxx-xxxx"
                 value={telefone}
                 onChange={(e) => setTelefone(e.target.value)}
               />
-            </label>
-          </div>
-          <div>
-            <span id="span-email">E-mail: </span>
-            <label>
-              <input
+              <Form.Control.Feedback tooltip>Ótimo!</Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group
+              as={Col}
+              controlId="email"
+              className="position-relative"
+            >
+              <Form.Label>E-mail: </Form.Label>
+              <Form.Control
                 type="email"
-                name="email"
-                placeholder="email@example.com"
+                placeholder="email@exemplo.com"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-            </label>
-          </div>
-          <div>
-            <label>
-              <span for="empreendimento">Descreva seu empreendimento: </span>
-              <br />
-              <textarea
-                id="empreendimento"
-                name="empreendimento"
-                rows="5"
-                cols="33"
-                placeholder="Descreva seu empreendimento detalhadamente"
+              <Form.Control.Feedback tooltip>Perfeito!!</Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group
+              as={Col}
+              controlId="empreendimento"
+              className="position-relative"
+            >
+              <Form.Label>Empreendimento</Form.Label>
+              <Form.Control
+                className="descricao"
+                required
+                type="text"
+                placeholder="Descreva aqui seu empreendimento"
                 value={empreendimento}
                 onChange={(e) => setEmpreendimento(e.target.value)}
-              ></textarea>
-            </label>
-          </div>
-        </form>
-        <Link to="/cadastrar">
+              />
+              <Form.Control.Feedback tooltip>Muito bem!</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <span>Você é empreendedor?</span>
+              <div>
+                <br />
+                <input
+                  type="radio"
+                  id="empreendedor"
+                  name="empreendedor"
+                  value="sim"
+                  onChange={(e) => setEmpreendedor(e.target.value)}
+                />
+                <label htmlFor="Sim"> Sim</label>
+                <br />
+                <input
+                  type="radio"
+                  id="naoempreendedor"
+                  name="empreendedor"
+                  value="nao"
+                  onChange={(e) => setEmpreendedor(e.target.value)}
+                />
+                <label htmlFor="Não"> Ainda não</label>
+              </div>
+            </Form.Group>
+          </Row>
+
           <Button
-            variant="success"
-            onClick={novoCadastro}
             className="botao-cadastro"
+            disabled={estadoDoBotao}
+            type="submit"
+            variant="success"
+            onClick={cadastrarUsuario}
           >
-            Cadastrar
+            <b>Cadastrar</b>
           </Button>
-        </Link>
+        </Form>
       </div>
     </div>
   );
